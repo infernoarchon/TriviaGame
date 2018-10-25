@@ -1,0 +1,11 @@
+/* Global Classes */
+body {
+    background: #eee;
+}
+
+/* Custom Classes */
+.maincard {
+    margin: auto;
+}
+
+/* Bootstrap Overrides */
