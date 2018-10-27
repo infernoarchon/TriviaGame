@@ -18,17 +18,33 @@ body {
 } */
 
 /* Bootstrap Overrides */
-
+#categories {
+    background: #82AA01;
+}
 
 .col-xl-4, .col-lg-6, .col-md-8 {
     padding: 0;
 }
 
 .card-img-top {
-    background: yellowgreen;
+    background: #82AA01;
     background-image: url("../images/riddler.png");
     background-repeat: no-repeat;
-    background-size: 400px 400px;
+    background-size: 320px 320px;
     background-position: center; 
-    height: 300px;
+    height: 250px;
+}
+
+.list-group-item:focus-within {
+    background-color: #fff;
+}
+
+.has-hover:hover {
+    background-color: #fff !important;
+    border-left: 4px solid rgb(154, 193, 37) !important;
+}
+
+.btn-outline-light:hover {
+    background: rgb(154, 193, 37);
+    color: white;
 }

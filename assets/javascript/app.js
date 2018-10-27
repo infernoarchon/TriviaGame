@@ -9,6 +9,8 @@ window.onload = function() {
     trivia.categories()
     // Put click events here
     $(document).on("click", ".category", trivia.getq);
+    $(document).on("click", ".incorrectans", timer.stop);
+    $(document).on("click", ".correctans", timer.stopcorr);
 };
 
 // Global Variables
@@ -22,9 +24,17 @@ var thirdanswer;
 var fourthanswer;
 
 var intervalId;
+var clockRunning = false;
+
 var currentcategory;
 var questions;
+var currentq = 0;
+
 var answerorder = [0,1,2,3];
+var ansslot1;
+var ansslot2;
+var ansslot3;
+var ansslot4;
 
 var categories = {
     "General": {
@@ -45,7 +55,7 @@ var categories = {
     },
     "Television": {
         "id":"14",
-        "difficulty":"medium"
+        "difficulty":"easy"
     },
     "Video Games": {
         "id":"15",
@@ -69,9 +79,15 @@ var categories = {
 var timer = {
     time: 30,
     start: function() {
+        if (!clockRunning) {
         intervalId = setInterval(timer.count, 1000)
+        clockRunning = true;
+        }
     },
     reset: function() {
+        trivia.cleanup()
+        currentq++
+        trivia.printq(currentq)
         timer.time = 30
         $("#displayTimer").html("30")
         timer.start()
@@ -88,6 +104,20 @@ var timer = {
     },
     stop: function() {
         clearInterval(intervalId);
+        clockRunning = false;
+        $(".correctans").addClass("list-group-item-success")
+        $(".list-group-item").removeClass("has-hover")
+        $(this).addClass("list-group-item-danger")
+        $(document).off("click")
+        setTimeout(timer.reset,5000)
+    },
+    stopcorr: function() {
+        clearInterval(intervalId);
+        clockRunning = false;
+        $(".correctans").addClass("list-group-item-success")
+        $(".list-group-item").removeClass("has-hover")
+        $(document).off("click")
+        setTimeout(timer.reset,5000)
     },
     timeConverter: function(t) {
         //  Takes the current time in milliseconds and convert it to seconds
@@ -127,19 +157,18 @@ var trivia = {
         return a;
     },
     fillans: function(a, y) {
-        var ansslot1 = "ans" + a[0]
-        var ansslot2 = "ans" + a[1]
-        var ansslot3 = "ans" + a[2]
-        var ansslot4 = "ans" + a[3]
+        ansslot1 = "ans" + a[0]
+        ansslot2 = "ans" + a[1]
+        ansslot3 = "ans" + a[2]
+        ansslot4 = "ans" + a[3]
         $("#" + ansslot1).html(questions.results[y].correct_answer)
-        $("#" + ansslot1).attr("data-name", "correctans");
-        $("#" + ansslot1).addClass("font-weight-bold");
+        $("#" + ansslot1).addClass("correctans")
         $("#" + ansslot2).html(questions.results[y].incorrect_answers[0])
-        $("#" + ansslot2).attr("data-name", "incorrectans");
+        $("#" + ansslot2).addClass("incorrectans");
         $("#" + ansslot3).html(questions.results[y].incorrect_answers[1])
-        $("#" + ansslot3).attr("data-name", "incorrectans");
+        $("#" + ansslot3).addClass("incorrectans");
         $("#" + ansslot4).html(questions.results[y].incorrect_answers[2])
-        $("#" + ansslot4).attr("data-name", "incorrectans");
+        $("#" + ansslot4).addClass("incorrectans");
     },
     getq : function() {
         trivia.start()
@@ -153,10 +182,18 @@ var trivia = {
         }).then(function(response) {
             questions = response
             console.log(response)
-            trivia.printq(0)
+            trivia.printq(currentq)
         });
     },
     cleanup : function() {
+        console.log(ansslot1)
+        $("#" + ansslot1).removeClass("incorrectans correctans list-group-item-danger list-group-item-success");
+        $("#" + ansslot2).removeClass("incorrectans correctans list-group-item-danger list-group-item-success");
+        $("#" + ansslot3).removeClass("incorrectans correctans list-group-item-danger list-group-item-success");
+        $("#" + ansslot4).removeClass("incorrectans correctans list-group-item-danger list-group-item-success");
+        $(document).on("click", ".incorrectans", timer.stop);
+        $(document).on("click", ".correctans", timer.stopcorr);
+        $(".list-group-item").addClass("has-hover");
         console.log("cleans up stuff")
     },
     categories : function() {
@@ -165,7 +202,7 @@ var trivia = {
             // Then dynamicaly generating buttons
             var a = $("<a href='#'>");
             // Adding a class to our button
-            a.addClass("category btn btn-outline-secondary col-4 rounded-0 ");
+            a.addClass("category btn btn-outline-light col-4 rounded-0 ");
             // Adding a data-attribute
             a.attr("data-name", currentcategory);
             // Providing the initial button text
