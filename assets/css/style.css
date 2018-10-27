@@ -6,7 +6,7 @@ body {
 /* Custom Classes */
 .maincard {
     margin: auto;
-    margin-top: 2em;
+    margin-top: 1em;
 }
 
 .invisible {
@@ -17,22 +17,28 @@ body {
     float:right;
 } */
 
-/* Bootstrap Overrides */
-#categories {
-    background: #82AA01;
+.timer-area {
+    margin-bottom: 1em;
+    margin-right: 0.1em;
+    height: 2em;
 }
 
-.col-xl-4, .col-lg-6, .col-md-8 {
+/* Bootstrap Overrides */
+
+.category{
+    padding: 10% 0;
+}
+
+.col-xl-5, .col-lg-6, .col-md-8, .col-11, .col-1 {
     padding: 0;
 }
 
-.card-img-top {
+#categories {
     background: #82AA01;
-    background-image: url("../images/riddler.png");
+    background-image: url("../images/riddlerfaded.png");
     background-repeat: no-repeat;
-    background-size: 320px 320px;
+    background-size: 60% auto;
     background-position: center; 
-    height: 250px;
 }
 
 .list-group-item:focus-within {
@@ -41,10 +47,14 @@ body {
 
 .has-hover:hover {
     background-color: #fff !important;
-    border-left: 4px solid rgb(154, 193, 37) !important;
+    border-left: 4px solid #28A745 !important;
 }
 
 .btn-outline-light:hover {
-    background: rgb(154, 193, 37);
+    background: rgb(154, 193, 37, 0.5);
     color: white;
 }
+
+/* .progress {
+    height: 2em;
+} */

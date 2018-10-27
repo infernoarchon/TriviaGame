@@ -10,12 +10,20 @@
         
     </head>
     <body>
-            <div class="card maincard col-xl-4 col-lg-6 col-md-8">
-                <img id="intro-pic" class="card-img-top">
+            <div class="card maincard col-xl-5 col-lg-6 col-md-8">
+                <!-- <img id="intro-pic" class="card-img-top"> -->
+                <div id="categories" class="border-0"></div>
                 <div class="card-body border-0">
                       <h4 id="intro-title" class="card-title">Holy Trivia Game, Batman!</h4>
-                      <h5><div id="displayTimer"></div></h5>
-                      <p id="question-view" class="card-text">Help Batman defeat The Riddler by answering each question before time runs out. Choose a category below to get started:</p>
+                      <div class="row timer-area invisible align-items-center">
+                      <div id="displayTimer" class="col-1 text-center font-weight-bold"></div>
+                        <div id="timer-bar" class="progress col-11">
+                            <div id="timerbarprogress" class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            </div>
+                        </div>
+                      </div>
+                      
+                      <p id="question-view" class="card-text">The Riddler is on the loose! Help Batman track him down by answering each question before time runs out. Choose a category above to begin.</p>
                       <div id="answer-view" class="invisible">
                             <div class="list-group">
                                     <a href="#" id="ans0" class="list-group-item list-group-item-action has-hover"></a>
@@ -24,7 +32,6 @@
                                     <a href="#" id="ans3" class="list-group-item list-group-item-action has-hover"></a>
                             </div>
                       </div>
-                      <div id="categories" class="border-0"></div>
                 </div>
             </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>        

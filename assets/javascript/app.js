@@ -78,9 +78,11 @@ var categories = {
 
 var timer = {
     time: 30,
+    bartime: 300,
     start: function() {
         if (!clockRunning) {
         intervalId = setInterval(timer.count, 1000)
+        barintervalId = setInterval(timer.barcount, 100)
         clockRunning = true;
         }
     },
@@ -89,6 +91,7 @@ var timer = {
         currentq++
         trivia.printq(currentq)
         timer.time = 30
+        timer.bartime = 300
         $("#displayTimer").html("30")
         timer.start()
     },
@@ -102,8 +105,20 @@ var timer = {
             setTimeout(timer.reset,5000)
         }
     },
+    barcount: function() {
+        timer.bartime--
+        var barlength = timer.bartime
+        console.log(timer.bartime/3)
+        $("#timerbarprogress").attr("style","width:"+barlength/3+"%")
+        // if(timer.time===0) {
+        //     console.log("Time Up! The answer was blah blah")
+        //     timer.stop()
+        //     setTimeout(timer.reset,5000)
+        // }
+    },
     stop: function() {
         clearInterval(intervalId);
+        clearInterval(barintervalId);
         clockRunning = false;
         $(".correctans").addClass("list-group-item-success")
         $(".list-group-item").removeClass("has-hover")
@@ -113,6 +128,7 @@ var timer = {
     },
     stopcorr: function() {
         clearInterval(intervalId);
+        clearInterval(barintervalId);
         clockRunning = false;
         $(".correctans").addClass("list-group-item-success")
         $(".list-group-item").removeClass("has-hover")
@@ -135,6 +151,7 @@ var trivia = {
         $("#question-view").addClass("font-weight-bold")
         $("#question-view").text("")
         $("#answer-view").removeClass("invisible")
+        $(".timer-area").removeClass("invisible")
         console.log("starts the game")
     },
     end: function() {
@@ -202,7 +219,7 @@ var trivia = {
             // Then dynamicaly generating buttons
             var a = $("<a href='#'>");
             // Adding a class to our button
-            a.addClass("category btn btn-outline-light col-4 rounded-0 ");
+            a.addClass("category btn btn-outline-light col-4 rounded-0 text-uppercase");
             // Adding a data-attribute
             a.attr("data-name", currentcategory);
             // Providing the initial button text
