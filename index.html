@@ -7,15 +7,14 @@
         <link rel="icon" type="image/ico" href="assets/images/favicon.ico">
     </head>
     <body>
-            <div class="card maincard col-xl-5 col-lg-6 col-md-8">
+            <div class="card maincard col-xl-5 col-lg-6 col-md-12">
                 <img id="riddler-win" src="assets/images/riddlerwin.png" class="card-img-top invisible">
                 <img id="riddler-lose" src="assets/images/riddlerlose.jpg" class="card-img-top invisible">
-                <div id="categories" class="border-0"></div>
                 <div class="card-body border-0">
                     <div class="row card-title d-flex justify-content-between">
                         <div class="col-md-12 col-xl-8">
                                 <h4 class="intro-title">Holy Trivia Game, Batman!</h4>
-                                <p class="intro-title">The Riddler is on the loose! Help Batman track him down by answering each question before time runs out. Choose a category to begin.</p>
+                                <p class="intro-title">The Riddler is on the loose! Help Batman track him down by answering several trivia questions.</p>
                         </div>
                             <div class="form-group col-md-12 col-xl-3 intro-title">
                                 <label for="difficultyselect" class="col-form-label-sm">Difficulty</label>
@@ -26,6 +25,7 @@
                                 </select>
                             </div>
                     </div>
+                    
                         
                       <div id="timer-area-grab" class="row timer-area invisible align-items-center">
                       <div id="displayTimer" class="col-1 text-center font-weight-bold"></div>
@@ -36,7 +36,7 @@
                       </div>
                       
                       <p id="question-view" class="card-text"></p>
-                      <div id="answer-view" class="invisible">
+                      <div id="answer-view" class="invisible mb-4">
                             <div class="list-group">
                                     <a href="#" id="ans0" class="list-group-item list-group-item-action has-hover"></a>
                                     <a href="#" id="ans1" class="list-group-item list-group-item-action has-hover"></a>
@@ -51,10 +51,12 @@
                             <button type="button" class="btn btn-outline-secondary col-xl-3 col-md-4"><h3 id="unanswered-view"></h3>Unanswered</button>
                         </div>
                         <div class="text-center">
-                            <button id="playagain" type="button" class="btn btn-success mt-4">Play Again</button>
+                            <button id="playagain" type="button" class="btn btn-success mt-4 mb-4">Play Again</button>
                         </div>
                       </div>
+                      
                 </div>
+                <div id="categories" class="border-0"></div>
             </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
