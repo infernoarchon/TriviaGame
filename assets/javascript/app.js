@@ -147,7 +147,7 @@ var timer = {
         $("#answer-view").addClass("invisible")
         $("#timer-area-grab").addClass("invisible")
         $("#result-view").removeClass("invisible")
-        $("#question-view").text("All done, here's how you did!")
+        $("#question-view").text("")
         $("#question-view").addClass("text-center")
         $("#question-view").removeClass("font-weight-bold")
         $("#playagain").on("click", trivia.restart)
@@ -155,13 +155,15 @@ var timer = {
         $("#incorrect-view").text(incorrectcount)
         $("#unanswered-view").text(unansweredcount)
         if(correctcount < 6) {
+            $("#riddler-lose").removeClass("invisible")
             var p = $("<p>")
             p.text("Looks like The Riddler got away. Better luck next time!")
-            $("#riddlerresult").append(p)
+            $("#question-view").append(p)
         } else {
+            $("#riddler-win").removeClass("invisible")
             var p = $("<p>")
-            p.text("You've caught The Riddler! His questions were no match for you!")
-            $("#riddlerresult").append(p)
+            p.text("You've caught The Riddler! His trivia questions were no match for you.")
+            $("#question-view").append(p)
         }
 
 

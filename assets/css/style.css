@@ -27,6 +27,9 @@ body {
     margin: 1em 0 1.5em 0;
 }
 
+#riddler-win {
+    background:#9ba5df;
+}
 /* Bootstrap Overrides */
 
 .category{
