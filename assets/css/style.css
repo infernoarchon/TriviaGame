@@ -28,12 +28,17 @@ body {
 }
 
 #riddler-win {
-    background:#9ba5df;
+    background:#df9b9b;
 }
+
+.card-title {
+    margin: 0;
+}
+
 /* Bootstrap Overrides */
 
 .category{
-    padding: 10% 0;
+    padding: 8% 0;
 }
 
 .col-xl-5, .col-lg-6, .col-md-8, .col-11, .col-1 {

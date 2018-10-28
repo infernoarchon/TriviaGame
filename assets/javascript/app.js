@@ -179,13 +179,12 @@ var trivia = {
         gamestarted = true
         timer.start()
         $("#intro-pic").addClass("invisible")
-        $("#intro-title").addClass("invisible")
+        $(".intro-title").addClass("invisible")
         $("#categories").addClass("invisible")
         $("#question-view").addClass("font-weight-bold")
         $("#question-view").text("")
         $("#answer-view").removeClass("invisible")
         $(".timer-area").removeClass("invisible")
-        console.log("starts the game")
     },
     end: function() {
         gamestarted = false
@@ -215,6 +214,7 @@ var trivia = {
         ansslot3 = "ans" + a[2]
         ansslot4 = "ans" + a[3]
         $("#" + ansslot1).html(questions.results[y].correct_answer)
+        console.log(questions.results[y].correct_answer)
         $("#" + ansslot1).addClass("correctans")
         $("#" + ansslot2).html(questions.results[y].incorrect_answers[0])
         $("#" + ansslot2).addClass("incorrectans");
@@ -226,15 +226,14 @@ var trivia = {
     getq : function() {
         trivia.start()
         var categorychoice = $(this).attr("data-name");
-        var categorydiff = categories[categorychoice].difficulty
+        var currentcategory = $("#difficultyselect").val().toLowerCase();
         var categoryid = categories[categorychoice].id
-        var triviaqueryURL = "https://opentdb.com/api.php?amount=10&category=" + categoryid + "&difficulty=" + categorydiff + "&type=multiple"
+        var triviaqueryURL = "https://opentdb.com/api.php?amount=10&category=" + categoryid + "&difficulty=" + currentcategory + "&type=multiple"
         $.ajax({
             url: triviaqueryURL,
             method: "GET"
         }).then(function(response) {
             questions = response
-            console.log(response)
             trivia.printq(currentq)
         });
     },
