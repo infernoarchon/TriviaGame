@@ -23,6 +23,10 @@ body {
     height: 2em;
 }
 
+#riddlerresult {
+    margin: 1em 0 1.5em 0;
+}
+
 /* Bootstrap Overrides */
 
 .category{
@@ -53,6 +57,10 @@ body {
 .btn-outline-light:hover {
     background: rgb(154, 193, 37, 0.5);
     color: white;
+}
+
+.btn-group-lg>.btn, .btn-lg {
+    font-size: 0.75em;
 }
 
 /* .progress {

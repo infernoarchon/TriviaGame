@@ -18,11 +18,6 @@ var gamestarted = false
 var correctq = 0
 var incorrectq = 0
 
-var firstanswer;
-var secondanswer;
-var thirdanswer;
-var fourthanswer;
-
 var intervalId;
 var clockRunning = false;
 
@@ -36,42 +31,46 @@ var ansslot2;
 var ansslot3;
 var ansslot4;
 
+var correctcount=0;
+var incorrectcount=0;
+var unansweredcount=0;
+
 var categories = {
     "General": {
         "id":"9",
-        "difficulty":"medium"
+        "difficulty":"easy"
     },
     "Books": {
         "id":"10",
-        "difficulty":"medium"
+        "difficulty":"hard"
     },
     "Film": {
         "id":"11",
-        "difficulty":"easy"
+        "difficulty":"medium"
     },
     "Music": {
         "id":"12",
-        "difficulty":"medium"
+        "difficulty":"hard"
     },
     "Television": {
         "id":"14",
-        "difficulty":"easy"
+        "difficulty":"medium"
     },
     "Video Games": {
         "id":"15",
-        "difficulty":"hard"
+        "difficulty":"medium"
     },
     "Science": {
         "id":"17",
-        "difficulty":"medium"
+        "difficulty":"hard"
     },
     "Sports": {
         "id":"21",
-        "difficulty":"easy"
-    },
-    "Comics": {
-        "id":"29",
         "difficulty":"medium"
+    },
+    "History": {
+        "id":"23",
+        "difficulty":"easy"
     }
 }
 
@@ -87,36 +86,41 @@ var timer = {
         }
     },
     reset: function() {
-        trivia.cleanup()
-        currentq++
-        trivia.printq(currentq)
-        timer.time = 30
-        timer.bartime = 300
-        $("#displayTimer").html("30")
-        timer.start()
+        if(currentq === 9) {
+            timer.permstop()
+        }
+        if(currentq < 9) {
+            trivia.cleanup()
+            currentq++
+            trivia.printq(currentq)
+            timer.time = 30
+            timer.bartime = 300
+            $("#displayTimer").html("30")
+            timer.start()
+        }
     },
     count: function() {
         timer.time--
         var countTime = timer.timeConverter(timer.time)
         $("#displayTimer").html(countTime)
         if(timer.time===0) {
-            console.log("Time Up! The answer was blah blah")
-            timer.stop()
+            unansweredcount++
+            clearInterval(intervalId);
+            clearInterval(barintervalId);
+            clockRunning = false;
+            $(".correctans").addClass("list-group-item-success")
+            $(".list-group-item").removeClass("has-hover")
+            $(document).off("click")
             setTimeout(timer.reset,5000)
         }
     },
     barcount: function() {
         timer.bartime--
         var barlength = timer.bartime
-        console.log(timer.bartime/3)
         $("#timerbarprogress").attr("style","width:"+barlength/3+"%")
-        // if(timer.time===0) {
-        //     console.log("Time Up! The answer was blah blah")
-        //     timer.stop()
-        //     setTimeout(timer.reset,5000)
-        // }
     },
     stop: function() {
+        incorrectcount++
         clearInterval(intervalId);
         clearInterval(barintervalId);
         clockRunning = false;
@@ -127,6 +131,7 @@ var timer = {
         setTimeout(timer.reset,5000)
     },
     stopcorr: function() {
+        correctcount++
         clearInterval(intervalId);
         clearInterval(barintervalId);
         clockRunning = false;
@@ -134,6 +139,32 @@ var timer = {
         $(".list-group-item").removeClass("has-hover")
         $(document).off("click")
         setTimeout(timer.reset,5000)
+    },
+    permstop: function() {
+        clearInterval(intervalId);
+        clearInterval(barintervalId);
+        clockRunning = false;
+        $("#answer-view").addClass("invisible")
+        $("#timer-area-grab").addClass("invisible")
+        $("#result-view").removeClass("invisible")
+        $("#question-view").text("All done, here's how you did!")
+        $("#question-view").addClass("text-center")
+        $("#question-view").removeClass("font-weight-bold")
+        $("#playagain").on("click", trivia.restart)
+        $("#correct-view").text(correctcount)
+        $("#incorrect-view").text(incorrectcount)
+        $("#unanswered-view").text(unansweredcount)
+        if(correctcount < 6) {
+            var p = $("<p>")
+            p.text("Looks like The Riddler got away. Better luck next time!")
+            $("#riddlerresult").append(p)
+        } else {
+            var p = $("<p>")
+            p.text("You've caught The Riddler! His questions were no match for you!")
+            $("#riddlerresult").append(p)
+        }
+
+
     },
     timeConverter: function(t) {
         //  Takes the current time in milliseconds and convert it to seconds
@@ -157,6 +188,9 @@ var trivia = {
     end: function() {
         gamestarted = false
         trivia.cleanup()
+    },
+    restart: function() {
+        location.reload()
     },
     printq: function(x) {
         $("#question-view").html(questions.results[x].question)
@@ -203,7 +237,6 @@ var trivia = {
         });
     },
     cleanup : function() {
-        console.log(ansslot1)
         $("#" + ansslot1).removeClass("incorrectans correctans list-group-item-danger list-group-item-success");
         $("#" + ansslot2).removeClass("incorrectans correctans list-group-item-danger list-group-item-success");
         $("#" + ansslot3).removeClass("incorrectans correctans list-group-item-danger list-group-item-success");
@@ -211,7 +244,6 @@ var trivia = {
         $(document).on("click", ".incorrectans", timer.stop);
         $(document).on("click", ".correctans", timer.stopcorr);
         $(".list-group-item").addClass("has-hover");
-        console.log("cleans up stuff")
     },
     categories : function() {
         for (var i = 0; i < Object.keys(categories).length; i++) {
