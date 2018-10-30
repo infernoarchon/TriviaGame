@@ -13,6 +13,14 @@ body {
     display:none;
 }
 
+.batman {
+    max-width: 50%;
+    position: fixed;
+    left: 55%;
+    top: 40%;
+    pointer-events: none;
+}
+
 /* #displayTimer {
     float:right;
 } */
@@ -77,3 +85,9 @@ body {
 /* .progress {
     height: 2em;
 } */
+
+@media only screen and (max-width: 1000px) {
+    .batman {
+        display: none;
+    }
+}

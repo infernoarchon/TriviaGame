@@ -148,6 +148,7 @@ var timer = {
         clearInterval(barintervalId);
         clockRunning = false;
         $("#answer-view").addClass("invisible")
+        $(".batman").addClass("invisible")
         $("#timer-area-grab").addClass("invisible")
         $("#result-view").removeClass("invisible")
         $("#question-view").text("")
