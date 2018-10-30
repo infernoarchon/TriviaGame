@@ -7,6 +7,7 @@
 
 window.onload = function() {
     trivia.categories()
+    trivia.getgifs(8)
     // Put click events here
     $(document).on("click", ".category", trivia.getq);
     $(document).on("click", ".incorrectans", timer.stop);
@@ -22,6 +23,8 @@ var intervalId;
 var clockRunning = false;
 
 var currentcategory;
+var currentgif;
+var gifs = [];
 var questions;
 var currentq = 0;
 
@@ -246,7 +249,42 @@ var trivia = {
         $(document).on("click", ".correctans", timer.stopcorr);
         $(".list-group-item").addClass("has-hover");
     },
+    getgifs : function(maxCategories) {
+        var gifCount = 0;
+        function getNextGif() {
+            var targetcategory = Object.keys(categories)[gifCount]
+            if(gifCount < 9) {
+            var targetcategorytrim = targetcategory.replace(/\s/g, '');
+            $.ajax({
+                url: "http://api.giphy.com/v1/gifs/random?tag=" + targetcategorytrim + "&api_key=dc6zaTOxFJmzC",
+                method: "GET",
+                success: function(response) {
+                    if (gifCount <= maxCategories) {
+                        gifCount++;
+                        console.log(response)
+                        $("#"+targetcategorytrim).attr("style","background-position: center; background-size: cover !important;background: linear-gradient(rgba(130,170,1,0.7),rgba(130,170,1,0.7)),url("+ response.data.fixed_width_downsampled_url +");")
+                        getNextGif()
+                        }
+                
+        
+                }
+            })
+        }
+    }
+        getNextGif();
+    },
     categories : function() {
+        // for (var i = 0; i< Object.keys(categories).length;i++) {
+        //     currentgif = Object.keys(categories)[i]
+        //     var gifqueryURL = "http://api.giphy.com/v1/gifs/random?tag=" + currentgif + "&api_key=dc6zaTOxFJmzC"
+            // $.ajax({
+            //     url: gifqueryURL,
+            //     method: "GET"
+            // }).done(function(response) {
+            //     console.log(response.data.fixed_height_small_url)
+                
+            // });
+        // }
         for (var i = 0; i < Object.keys(categories).length; i++) {
             currentcategory = Object.keys(categories)[i]
             // Then dynamicaly generating buttons
@@ -255,6 +293,9 @@ var trivia = {
             a.addClass("category btn btn-outline-light col-4 rounded-0 text-uppercase");
             // Adding a data-attribute
             a.attr("data-name", currentcategory);
+            var currentcategorytrim = currentcategory.replace(/\s/g, '');
+            a.attr("id",currentcategorytrim)
+            // a.attr("style","background: linear-gradient(rgba(255,0,0,0.45),rgba(255,0,0,0.45)),url("+gifs[i]+");")
             // Providing the initial button text
             a.text(currentcategory);
             // Adding the button
