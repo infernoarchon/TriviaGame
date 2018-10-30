@@ -4,3 +4,4 @@ This is a trivia game where the user has a limited amount of time to answer mult
 
 ## APIs Used
 https://opentdb.com/api_config.php
+https://developers.giphy.com/
