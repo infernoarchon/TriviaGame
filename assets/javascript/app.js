@@ -43,8 +43,8 @@ var categories = {
         "id":"9",
         "difficulty":"easy"
     },
-    "Books": {
-        "id":"10",
+    "Art": {
+        "id":"25",
         "difficulty":"hard"
     },
     "Film": {
