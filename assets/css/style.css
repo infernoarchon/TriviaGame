@@ -51,9 +51,9 @@ body {
 
 #categories {
     background: #82AA01;
-    /* background-image: url("../images/riddlerfaded.png"); */
+    background-image: url("../images/riddlerfaded.png");
     background-repeat: no-repeat;
-    background-size: 60% auto;
+    background-size: 70% auto;
     background-position: center; 
 }
 
@@ -67,7 +67,7 @@ body {
 }
 
 .btn-outline-light:hover {
-    background: linear-gradient(rgba(197, 255, 7, 0.1),rgba(197,255,7,0.1)) !important;
+    background: transparent !important;
 }
 
 .btn-group-lg>.btn, .btn-lg {
