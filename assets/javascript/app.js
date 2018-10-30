@@ -256,7 +256,7 @@ var trivia = {
             if(gifCount < 9) {
             var targetcategorytrim = targetcategory.replace(/\s/g, '');
             $.ajax({
-                url: "http://api.giphy.com/v1/gifs/random?tag=" + targetcategorytrim + "&api_key=dc6zaTOxFJmzC",
+                url: "https://api.giphy.com/v1/gifs/random?tag=" + targetcategorytrim + "&api_key=dc6zaTOxFJmzC",
                 method: "GET",
                 success: function(response) {
                     if (gifCount <= maxCategories) {
