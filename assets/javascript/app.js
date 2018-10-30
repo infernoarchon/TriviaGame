@@ -43,8 +43,8 @@ var categories = {
         "id":"9",
         "difficulty":"easy"
     },
-    "Art": {
-        "id":"25",
+    "Animation": {
+        "id":"32",
         "difficulty":"hard"
     },
     "Film": {
