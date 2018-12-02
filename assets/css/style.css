@@ -58,11 +58,9 @@ body {
 }
 
 #categories {
-    background: #82AA01;
-    background-image: url("../images/riddlerfaded.png");
+    background: linear-gradient(rgba(130,170,1,0.7),rgba(130,170,1,0.7)), url("../images/riddler2.jpg") !important;
     background-repeat: no-repeat;
-    background-size: 70% auto;
-    background-position: center; 
+    background-size: cover !important; 
 }
 
 .list-group-item:focus-within {
